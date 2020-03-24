@@ -1,0 +1,66 @@
+import requests as req
+import json
+import csv
+from docx import Document
+import os
+
+class Robtex:
+    # Table contenant les adresses à vérifier
+    list_address = []
+    csv_list = []
+
+    def __init__(self):
+        self.list_address.append("google.com")
+        self.list_address.append("adacis.net")
+
+    def process(self):
+        for address in self.list_address:
+            self.csv_list.append(self.json_to_csv(self.get_ajax_request(self.split_address(address))))
+        return self.csv_list
+
+    def split_address(self, address):
+        # Ajouter vérification sur l'adresse
+        return address.split('.')
+
+    def split_json(self, result):
+        return result.replace('if(window.rtcb) rtcb(', '').replace(');', '')
+
+    def get_ajax_request(self, splited_address):
+        url = "https://rtsaks.robtex.com/js/getdnsbl/z3/h.02.%s.%s.js" % (splited_address[1], splited_address[0])
+        response = req.get(url)
+        return self.split_json(response.text)
+
+    def json_to_csv(self, json_string):
+        # Conversion de la chaîne de caractères en JSON
+        json_file = json.loads(json_string)
+        # Récupération des réponses trouvées
+        answer_data = json_file["answer"]
+        csv = ""
+        for answer in answer_data:
+            tmp = answer_data[answer]
+            # Création du CSV avec toutes les lignes en erreur
+            if tmp:
+                csv += answer.replace('!', '.') + ";"
+        return csv
+
+
+robtex_request = Robtex()
+res_csv = robtex_request.process()
+print(res_csv)
+
+with open('C:/Users/jerom/OneDrive/Bureau/persones.csv', 'w', newline='') as file:
+    writer = csv.writer(file, quoting=csv.QUOTE_MINIMAL, delimiter=';')
+    writer.writerow(res_csv)
+
+doc = Document()
+doc.add_heading('Module 1 : Ssslab', 0)
+
+with open("C:/Users/jerom/OneDrive/Bureau/persones.csv", 'r', encoding='utf-8') as file:
+    doc.add_paragraph(file.read())
+
+doc.add_heading('Module 2 : Blacklist', 0)
+with open("C:/Users/jerom/OneDrive/Bureau/persones.csv", 'r', encoding='utf-8') as file:
+    doc.add_paragraph(file.read())
+
+doc.save("Sortie.docx")
+os.startfile("Sortie.docx")

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>miageexemple</id>
+    <name>Miage Exemple</name>
+    <summary>Miage Exemple</summary>
+    <description><![CDATA[Exemple de code pour les MIAGISTES \o/]]></description>
+    <version>0.0.2</version>
+    <licence>agpl</licence>
+    <author mail="b.aimard@adacis.net" >Benjamin AIMARD</author>
+    <namespace>MiageExemple</namespace>
+    <category>tools</category>
+    <bugs>https://git-externe.adacis.net</bugs>
+    <dependencies>
+        <nextcloud min-version="14" max-version="20"/>
+    </dependencies>
+    <navigations>
+        <navigation>
+            <name>Miage Exemple</name>
+            <route>miageexemple.page.index</route>
+        </navigation>
+    </navigations>
+</info>

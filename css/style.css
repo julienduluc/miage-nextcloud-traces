@@ -1,0 +1,73 @@
+#app{
+  width:100%;
+}
+
+#datatable_wrapper {
+  margin-top:50px;
+  width:100%;
+  font-size:16px;
+}
+
+
+#datatable_info{
+  margin-left:50px;
+}
+
+#datatable_length{
+  right:50px;
+  position:absolute;
+}
+
+#datatable_length{
+  margin-top:-30px;
+}
+#datatable_paginate{
+  margin-right:50px;
+}
+#datatable_filter{
+  margin-right:20vw;
+  margin-top:-30px;
+}
+
+#datatable_filter > label > input{
+  width:37vw;
+}
+#min,
+#max{
+  width:3.5vw;
+}
+th, td {
+  text-align: left;
+  padding: 8px;
+  text-align:center;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+tfoot > tr > th {
+  background-color: white;
+  color: black;
+}
+
+.date-filter-block{
+	position:absolute;
+	left:0;
+	margin-left: 60px;
+	margin-top: 20px;
+}
+.user-filter,
+.action-filter{
+	position:absolute;
+	top:-30px;
+}
+.user-filter{
+	margin-left:-39px;
+}
+.action-filter{
+	margin-left:-74px;
+}

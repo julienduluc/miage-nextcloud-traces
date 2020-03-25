@@ -3,6 +3,12 @@ import json
 import csv
 from docx import Document
 import os
+import sys
+
+Site = sys.argv[1]
+Site2 = sys.argv[2]
+print(Site)
+print(Site2)
 
 class Robtex:
     # Table contenant les adresses à vérifier
@@ -10,8 +16,8 @@ class Robtex:
     csv_list = []
 
     def __init__(self):
-        self.list_address.append("google.com")
-        self.list_address.append("adacis.net")
+        self.list_address.append(Site)
+        self.list_address.append(Site2)
 
     def process(self):
         for address in self.list_address:

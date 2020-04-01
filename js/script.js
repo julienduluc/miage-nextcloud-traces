@@ -1,4 +1,4 @@
-var baseUrl = OC.generateUrl('/apps/miageexemple');
+var baseUrl = OC.generateUrl('/apps/miage-nextcloud-traces');
 
 
 $(document).ready(function () {

@@ -127,7 +127,7 @@ class PageController extends Controller {
 		$response = $this->formateData($response);
 		$parameters = array('response' => $response);
 
-		return new TemplateResponse('miageexemple', 'index',$parameters);  // templates/index.php
+		return new TemplateResponse('miage-nextcloud-traces', 'index',$parameters);  // templates/index.php
 	}
 
 	/**

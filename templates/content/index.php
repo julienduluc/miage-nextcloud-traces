@@ -1,7 +1,7 @@
 <?php
-style('miageexemple', 'style');
-style('miageexemple', 'datatable.min');
-script('miageexemple', 'datatable.min');
+style('miage-nextcloud-traces', 'style');
+style('miage-nextcloud-traces', 'datatable.min');
+script('miage-nextcloud-traces', 'datatable.min');
 ?>
 <div class="date-filter-block">
 	<span>

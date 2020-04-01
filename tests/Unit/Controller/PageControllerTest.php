@@ -17,7 +17,7 @@ class PageControllerTest extends PHPUnit_Framework_TestCase {
 		$request = $this->getMockBuilder('OCP\IRequest')->getMock();
 
 		$this->controller = new PageController(
-			'miageexemple', $request, $this->userId
+			'miage-nextcloud-traces', $request, $this->userId
 		);
 	}
 

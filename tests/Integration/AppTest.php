@@ -17,13 +17,13 @@ class AppTest extends TestCase {
 
     public function setUp() {
         parent::setUp();
-        $app = new App('miageexemple');
+        $app = new App('miage-nextcloud-traces');
         $this->container = $app->getContainer();
     }
 
     public function testAppInstalled() {
         $appManager = $this->container->query('OCP\App\IAppManager');
-        $this->assertTrue($appManager->isInstalled('miageexemple'));
+        $this->assertTrue($appManager->isInstalled('miage-nextcloud-traces'));
     }
 
 }

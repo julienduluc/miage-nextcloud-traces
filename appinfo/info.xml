@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
-    <id>miageexemple</id>
-    <name>Miage Exemple</name>
-    <summary>Miage Exemple</summary>
+    <id>miage-nextcloud-traces</id>
+    <name>Miage Nextcloud Traces</name>
+    <summary>Miage Nextcloud Traces</summary>
     <description><![CDATA[Exemple de code pour les MIAGISTES \o/]]></description>
     <version>0.0.2</version>
     <licence>agpl</licence>
@@ -16,8 +16,8 @@
     </dependencies>
     <navigations>
         <navigation>
-            <name>Miage Exemple</name>
-            <route>miageexemple.page.index</route>
+            <name>Miage Nextcloud Traces</name>
+            <route>miage-nextcloud-traces.page.index</route>
         </navigation>
     </navigations>
 </info>

@@ -1,6 +1,6 @@
 <?php
-script('miageexemple', 'script');
-style('miageexemple', 'style');
+script('miage-nextcloud-traces', 'script');
+style('miage-nextcloud-traces', 'style');
 ?>
 
 <div id="app">

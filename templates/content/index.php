@@ -11,12 +11,13 @@ script('miage-nextcloud-traces', 'datatable.min');
 		<input id="max" name="max" type="text" placeholder="To">
 	</span>
 </div>
+
 <table id="datatable" class="table table-striped">
 	<thead>	
 		<tr>
-			<th scope="col">Date</th>
-			<th scope="col">User</th>
-			<th scope="col">Action</th>
+            <th scope="col">Date</th>
+			<th scope="col"><span id="user">User</span></th>
+            <th scope="col">Action</th>
 			<th scope="col">Affected to</th>
 			<th scope="col">Path/Name</th>
 		</tr>

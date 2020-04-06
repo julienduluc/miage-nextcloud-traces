@@ -56,7 +56,7 @@
     <li>
         <a href="<?= $_['param_url'] ?>" class="filter" id="favorite">
             <img alt="" src="/core/img/actions/settings-dark.svg">
-            <span>Paramètres</span>
+            <span>Parameters</span>
         </a>
     </li>
 </ul>

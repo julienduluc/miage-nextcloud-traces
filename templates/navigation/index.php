@@ -48,9 +48,9 @@
 		</a>
 	</li>
     <li>
-        <a href="#" class="filter" id="fraude">
+        <a href="#" class="filter" id="denied-access">
             <img alt="" src="/core/img/actions/disabled-user.svg">
-            <span>Fraude</span>
+            <span>Denied access</span>
         </a>
     </li>
 </ul>

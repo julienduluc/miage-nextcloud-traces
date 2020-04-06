@@ -26,7 +26,7 @@ $(document).ready(function () {
 			table.clear();
 			table.rows.add(data).draw(false);
 
-            user.textContent = $filter == 'fraude' ? 'Fraudeur' : 'User';
+            user.textContent = $filter == 'denied-access' ? 'Fraudeur' : 'User';
 
 		}).fail(function (response, code) {
 			console.log(response + ' ' + code);

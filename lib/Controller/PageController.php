@@ -213,10 +213,22 @@ class PageController extends Controller {
 	 */
 	public function get($filter = 'all') {
 
+        $debut = $this->AllConfig->getUserValue($this->userId, 'miage-nextcloud-traces', 'date_debut');
+        $fin   = $this->AllConfig->getUserValue($this->userId, 'miage-nextcloud-traces', 'date_fin');
+
+        if ($debut == NULL OR $fin == NULL) {
+            $params['premiere_fois'] = true;
+            return new RedirectResponse($this->urlGenerator->linkToRoute('miage-nextcloud-traces.page.param', $params));
+        }
+
 		$query = $this->connection->getQueryBuilder();
 		if($filter == 'all'){
 			$query->select('*')
-			->from('activity');
+			->from('activity')
+            ->where('timestamp > :debut')
+            ->andWhere('timestamp < :fin')
+            ->setParameter('debut', strtotime($debut))
+            ->setParameter('fin',   strtotime($fin));
 
 			$result = $query->execute();
 			$response = [] ;
@@ -230,7 +242,11 @@ class PageController extends Controller {
 		}else{
 			$query->select('*')
 			->from('activity')
-			->where($query->expr()->like('type', $query->createNamedParameter("%".$filter."%")));
+			->where($query->expr()->like('type', $query->createNamedParameter("%".$filter."%")))
+            ->andwhere('timestamp > :debut')
+            ->andWhere('timestamp < :fin')
+            ->setParameter('debut', strtotime($debut))
+            ->setParameter('fin',   strtotime($fin));
 
 			$result = $query->execute();
 			$response = [] ;

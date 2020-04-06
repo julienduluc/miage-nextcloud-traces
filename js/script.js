@@ -26,6 +26,8 @@ $(document).ready(function () {
 			table.clear();
 			table.rows.add(data).draw(false);
 
+            user.textContent = $filter == 'fraude' ? 'Fraudeur' : 'User';
+
 		}).fail(function (response, code) {
 			console.log(response + ' ' + code);
 		});
@@ -34,6 +36,8 @@ $(document).ready(function () {
 	$('.filter').on('click',function () {
 		newFilter($(this).attr('id'));
 	});
+
+    var user = document.querySelector('#datatable #user');
 
 
     $.fn.dataTable.ext.search.push(

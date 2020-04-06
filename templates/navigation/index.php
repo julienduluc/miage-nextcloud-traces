@@ -53,4 +53,10 @@
             <span>Paramètres</span>
         </a>
     </li>
+    <li>
+        <a href="#" class="filter" id="fraude">
+            <img alt="" src="/core/img/actions/disabled-user.svg">
+            <span>Fraude</span>
+        </a>
+    </li>
 </ul>

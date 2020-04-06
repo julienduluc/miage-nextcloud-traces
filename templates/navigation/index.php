@@ -48,15 +48,15 @@
 		</a>
 	</li>
     <li>
-        <a href="<?= $_['param_url'] ?>" class="filter" id="favorite">
-            <img alt="" src="/core/img/actions/settings-dark.svg">
-            <span>Paramètres</span>
+        <a href="#" class="filter" id="denied_access">
+            <img alt="" src="/core/img/actions/disabled-user.svg">
+            <span>Denied access</span>
         </a>
     </li>
     <li>
-        <a href="#" class="filter" id="denied-access">
-            <img alt="" src="/core/img/actions/disabled-user.svg">
-            <span>Denied access</span>
+        <a href="<?= $_['param_url'] ?>" class="filter" id="favorite">
+            <img alt="" src="/core/img/actions/settings-dark.svg">
+            <span>Paramètres</span>
         </a>
     </li>
 </ul>

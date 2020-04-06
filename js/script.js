@@ -19,6 +19,7 @@ $(document).ready(function () {
   				obj.subject = row['subject'];
   				obj.affecteduser = row['affecteduser'];
   				obj.file = row['file'];
+  				// obj.link = row['link'];
   				//console.log(obj);
   				data.push(obj);
 			});
@@ -26,7 +27,7 @@ $(document).ready(function () {
 			table.clear();
 			table.rows.add(data).draw(false);
 
-            user.textContent = $filter == 'denied-access' ? 'Fraudeur' : 'User';
+            // user.textContent = $filter == 'denied_access' ? 'Fraudeur' : 'User';
 
 		}).fail(function (response, code) {
 			console.log(response + ' ' + code);
@@ -37,7 +38,7 @@ $(document).ready(function () {
 		newFilter($(this).attr('id'));
 	});
 
-    var user = document.querySelector('#datatable #user');
+    // var user = document.querySelector('#datatable #user');
 
 
     $.fn.dataTable.ext.search.push(

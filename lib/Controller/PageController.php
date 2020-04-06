@@ -101,6 +101,9 @@ class PageController extends Controller {
 	'assign_tag' => 'Tag assigned',
 	'unassign_tag' => 'Tag removed',
 
+        // DENIED ACCESS //
+        'denied_access' => 'Denied access'
+
 	];
 
 	public function __construct($AppName, IRequest $request, $UserId,IDBConnection $connection, AllConfig $allConfig, IURLGenerator $urlGenerator){

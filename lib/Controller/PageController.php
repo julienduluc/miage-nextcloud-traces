@@ -1,6 +1,9 @@
 <?php
 namespace OCA\MiageExemple\Controller;
 
+use DateTime;
+use OC\AllConfig;
+use OCP\AppFramework\Http\RedirectResponse;
 use OCP\IRequest;
 use OCP\Activity\IEvent;
 use OCP\Activity\IExtension;
@@ -9,6 +12,8 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
+use OCP\IURLGenerator;
+use OCP\PreConditionNotMetException;
 
 
 class PageController extends Controller {
@@ -16,6 +21,12 @@ class PageController extends Controller {
 
 	/** @var IDBConnection */
 	protected $connection;
+
+	/** @var AllConfig */
+	private $AllConfig;
+
+	/** @var IURLGenerator */
+	private $urlGenerator;
 
 	protected $array = [
 
@@ -68,9 +79,6 @@ class PageController extends Controller {
 	'calendar_user_unshare_you' => 'Calendar shared',
 	'calendar_group_unshare_you' => 'Calendar unshared',
 
-
-
-
 	// SHARED //
 	'shared_with_by' => 'File/folder shared',
 	'shared_user_self' => 'File/Folder shared',
@@ -95,10 +103,12 @@ class PageController extends Controller {
 
 	];
 
-	public function __construct($AppName, IRequest $request, $UserId,IDBConnection $connection){
+	public function __construct($AppName, IRequest $request, $UserId,IDBConnection $connection, AllConfig $allConfig, IURLGenerator $urlGenerator){
 		parent::__construct($AppName, $request);
 		$this->userId = $UserId;
 		$this->connection = $connection;
+		$this->AllConfig = $allConfig;
+		$this->urlGenerator = $urlGenerator;
 	}
 
 		/**
@@ -113,9 +123,22 @@ class PageController extends Controller {
 	 */
 	public function index() {
 
+	    $debut = $this->AllConfig->getUserValue($this->userId, 'miage-nextcloud-traces', 'date_debut');
+	    $fin   = $this->AllConfig->getUserValue($this->userId, 'miage-nextcloud-traces', 'date_fin');
+
+	    if ($debut == NULL OR $fin == NULL) {
+	        $params['premiere_fois'] = true;
+            return new RedirectResponse($this->urlGenerator->linkToRoute('miage-nextcloud-traces.page.param', $params));
+        }
+
+
 		$query = $this->connection->getQueryBuilder();
 		$query->select('*')
-		->from('activity');
+		->from('activity')
+        ->where('timestamp > :debut')
+        ->andWhere('timestamp < :fin')
+        ->setParameter('debut', strtotime($debut))
+        ->setParameter('fin',   strtotime($fin));
 
 		$result = $query->execute();
 		$response = [] ;
@@ -127,9 +150,54 @@ class PageController extends Controller {
 		$response = $this->formateData($response);
 		$parameters = array('response' => $response);
 
-		return new TemplateResponse('miage-nextcloud-traces', 'index',$parameters);  // templates/index.php
+		$parameters['param_url'] = $this->urlGenerator->linkToRoute('miage-nextcloud-traces.page.param');
+		$parameters['index_url'] = $this->urlGenerator->linkToRoute('miage-nextcloud-traces.page.index');
+
+		return new TemplateResponse('miage-nextcloud-traces', 'index', $parameters);  // templates/index.php
 	}
 
+    /**
+     * CAUTION: the @Stuff turns off security checks; for this page no admin is
+     *          required and no CSRF check. If you don't know what CSRF is, read
+     *          it up in the docs or you might create a security hole. This is
+     *          basically the only required method to add this exemption, don't
+     *          add it to any other method if you don't exactly know what it does
+     *
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     */
+
+
+    public function param($debut, $fin) {
+
+        $params = array();
+
+        $params['param_url'] = $this->urlGenerator->linkToRoute('miage-nextcloud-traces.page.param');
+        $params['index_url'] = $this->urlGenerator->linkToRoute('miage-nextcloud-traces.page.index');
+
+        if (isset($debut) AND isset($fin)) {
+            if (($this->validateDate($debut)) AND ($this->validateDate($fin))) {
+                try {
+                    $this->AllConfig->setUserValue($this->userId, 'miage-nextcloud-traces', 'date_debut', $debut);
+                    $this->AllConfig->setUserValue($this->userId, 'miage-nextcloud-traces', 'date_fin',   $fin);
+                } catch (PreConditionNotMetException $e) {
+                    $params['error'] = true;
+                }
+                $params['error'] = false;
+            } else {
+                $params['error'] = true;
+            }
+        }
+
+        $params['debut'] = $this->AllConfig->getUserValue($this->userId, 'miage-nextcloud-traces', 'date_debut');
+        $params['fin']   = $this->AllConfig->getUserValue($this->userId, 'miage-nextcloud-traces', 'date_fin');
+
+        return new TemplateResponse('miage-nextcloud-traces', 'param', $params);
+    }
+
+    public function paramInsert($param){
+        return new TemplateResponse('miage-nextcloud-traces', 'param');
+    }
 	/**
 	 * CAUTION: the @Stuff turns off security checks; for this page no admin is
 	 *          required and no CSRF check. If you don't know what CSRF is, read
@@ -254,5 +322,11 @@ class PageController extends Controller {
 		}
 		return $data;
 	}
+
+	/* Validation date format */
+    private function validateDate($date, $format = 'Y-m-d'){
+        $d = DateTime::createFromFormat($format, $date);
+        return $d && $d->format($format) === $date;
+    }
 
 }

@@ -10,7 +10,9 @@
 return [
 
     'routes' => [
-	   ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-	   ['name' => 'page#getFilter', 'url' => '/{filter}', 'verb' => 'GET'],
+	    ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
+	    ['name' => 'page#getFilter', 'url' => '/{filter}', 'verb' => 'GET'],
+        ['name' => 'page#param', 'url' => '/param/save', 'verb' => 'GET'],
+        ['name' => 'page#paramInsert', 'url' => '/param/save', 'verb' => 'POST']
     ]
 ];

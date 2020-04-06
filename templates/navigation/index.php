@@ -1,6 +1,6 @@
 <ul>
 	<li>
-		<a href="#" class="filter" id="all">
+		<a href="<?= $_['index_url'] ?>" class="filter" id="all">
 			<img alt="" src="/core/img/categories/organization.svg">
 			<span>All</span>
 		</a>
@@ -47,4 +47,10 @@
 			<span>Favorites</span>
 		</a>
 	</li>
+    <li>
+        <a href="<?= $_['param_url'] ?>" class="filter" id="favorite">
+            <img alt="" src="/core/img/actions/settings-dark.svg">
+            <span>Paramètres</span>
+        </a>
+    </li>
 </ul>
